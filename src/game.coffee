@@ -6,6 +6,7 @@ game =
       return
     gfx.load -> game.reset()
   reset: ->
+    @player = new Player
     if not @running
       @start()
       @tick()
@@ -23,6 +24,8 @@ game =
     requestAnimationFrame ->
       game.tick()
   update: ->
+    @player.update()
+  render: ->
     gfx.ctx.fillStyle = "#000"
     gfx.ctx.fillRect 0,0,gfx.w,gfx.h
-  render: ->
+    @player.render()

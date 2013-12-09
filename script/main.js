@@ -2,8 +2,6 @@
 var Player, game, gfx;
 
 Player = (function() {
-  function Player() {}
-
   Player.prototype.x = 0;
 
   Player.prototype.y = 0;
@@ -11,6 +9,28 @@ Player = (function() {
   Player.prototype.w = 18;
 
   Player.prototype.h = 24;
+
+  function Player() {
+    this.inAir = false;
+  }
+
+  Player.prototype.move = function() {
+    this.x += xo;
+    return this.y += yo;
+  };
+
+  Player.prototype.update = function() {
+    var xo, yo;
+    xo = yo = 0;
+    return this.move(xo, yo);
+  };
+
+  Player.prototype.render = function() {
+    gfx.ctx.fillStyle = "#fff";
+    return gfx.ctx.fillRect(100, 100, 100, 100);
+  };
+
+  Player.prototype.move = function() {};
 
   return Player;
 
@@ -48,6 +68,7 @@ game = {
     });
   },
   reset: function() {
+    this.player = new Player;
     if (!this.running) {
       this.start();
       return this.tick();
@@ -73,8 +94,11 @@ game = {
     });
   },
   update: function() {
-    gfx.ctx.fillStyle = "#000";
-    return gfx.ctx.fillRect(0, 0, gfx.w, gfx.h);
+    return this.player.update();
   },
-  render: function() {}
+  render: function() {
+    gfx.ctx.fillStyle = "#000";
+    gfx.ctx.fillRect(0, 0, gfx.w, gfx.h);
+    return this.player.render();
+  }
 };
