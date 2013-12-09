@@ -76,9 +76,8 @@ keys = {
       case 32:
         this.space = isDown;
     }
-    console.log(game.gravity);
     if (this.up) {
-      game.gravity = 0.3;
+      game.gravity = 0.01;
     }
     if (this.down) {
       game.gravity = 1.5;
