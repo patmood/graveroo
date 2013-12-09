@@ -12,8 +12,7 @@ keys =
       when 40 then @down = isDown
       when 32 then @space = isDown
 
-    console.log game.gravity
-    game.gravity = 0.3 if @up
+    game.gravity = 0.01 if @up
     game.gravity = 1.5 if @down
     game.gravity = 0.5 if @space
 
