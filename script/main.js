@@ -2,7 +2,41 @@
 var game;
 
 game = {
+  running: false,
   init: function() {
-    return console.log("Hello World!");
-  }
+    if (!gfx.init()) {
+      alert("Sorry, no canvas");
+      return;
+    }
+    return gfx.load(function() {
+      return game.reset();
+    });
+  },
+  reset: function() {
+    if (!this.running) {
+      this.start();
+      return this.tick();
+    }
+  },
+  start: function() {
+    this.running = true;
+    return console.log("Starting game...");
+  },
+  stop: function() {
+    this.running = false;
+    return console.log("Stopping game");
+  },
+  tick: function() {
+    if (!this.running) {
+      return;
+    }
+    gfx.clear();
+    this.update();
+    this.render();
+    return requestAnimationFrame(function() {
+      return game.tick();
+    });
+  },
+  update: function() {},
+  render: function() {}
 };
