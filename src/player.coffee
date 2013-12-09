@@ -16,7 +16,7 @@ class Player
       @jump()
 
     if @falling
-      @speed += gravity
+      @speed += game.gravity
       yo += @speed
 
 

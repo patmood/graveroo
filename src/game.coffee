@@ -31,5 +31,4 @@ game =
     gfx.ctx.fillStyle = "#000"
     gfx.ctx.fillRect 0,0,gfx.w,gfx.h
     @player.render()
-
-gravity = 0.5
+  gravity: 0.5
