@@ -21,14 +21,19 @@ Player = (function() {
   Player.prototype.move = function(xo, yo) {
     if (this.y >= gfx.h - this.h) {
       this.falling = false;
-      console.log("STOP");
+      this.jump();
     }
     if (this.falling) {
-      this.speed -= gravity;
-      yo -= this.speed;
+      this.speed += gravity;
+      yo += this.speed;
     }
     this.x += xo;
     return this.y += yo;
+  };
+
+  Player.prototype.jump = function() {
+    this.falling = true;
+    return this.speed = -20;
   };
 
   Player.prototype.update = function() {
@@ -113,4 +118,4 @@ game = {
   }
 };
 
-gravity = 1;
+gravity = 0.5;

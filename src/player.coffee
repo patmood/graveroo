@@ -13,16 +13,20 @@ class Player
     # Air or ground?
     if @y >= gfx.h - @h
       @falling = false
-      console.log "STOP"
+      @jump()
 
     if @falling
-      @speed -= gravity
-      yo -= @speed
+      @speed += gravity
+      yo += @speed
 
 
     # Update the position
     @x += xo
     @y += yo
+
+  jump: ->
+    @falling = true
+    @speed = -20
 
   update: ->
     # Position differential
