@@ -4,6 +4,13 @@ var Level, Player, game, gfx, keys;
 Level = (function() {
   function Level() {}
 
+  Level.prototype.update = function() {};
+
+  Level.prototype.render = function() {
+    gfx.ctx.fillStyle = "#000";
+    return gfx.ctx.fillRect(0, 0, gfx.w, gfx.h);
+  };
+
   return Level;
 
 })();
@@ -17,25 +24,35 @@ Player = (function() {
 
   Player.prototype.h = 24;
 
-  Player.prototype.speed = 0;
+  Player.prototype.speed = -10;
 
   function Player(x, y) {
     this.x = x;
     this.y = y;
     this.falling = true;
+    this.onGround = false;
   }
 
   Player.prototype.move = function(xo, yo) {
-    if (this.y >= gfx.h - this.h) {
+    if ((this.y >= gfx.h - this.h) && !this.onGround) {
       this.falling = false;
-      this.jump();
+      this.onGround = true;
+      this.land();
     }
     if (this.falling) {
+      this.onGround = false;
       this.speed += game.gravity;
       yo += this.speed;
     }
     this.x += xo;
     return this.y += yo;
+  };
+
+  Player.prototype.land = function() {
+    var _this = this;
+    return setTimeout((function() {
+      return _this.jump();
+    }), 100);
   };
 
   Player.prototype.jump = function() {
@@ -117,6 +134,7 @@ gfx = {
 };
 
 game = {
+  gravity: 0.5,
   running: false,
   init: function() {
     if (!gfx.init()) {
@@ -129,6 +147,7 @@ game = {
   },
   reset: function() {
     this.player = new Player(100, 200);
+    this.level = new Level;
     if (!this.running) {
       this.start();
       return this.tick();
@@ -154,12 +173,11 @@ game = {
     });
   },
   update: function() {
+    this.level.update();
     return this.player.update();
   },
   render: function() {
-    gfx.ctx.fillStyle = "#000";
-    gfx.ctx.fillRect(0, 0, gfx.w, gfx.h);
+    this.level.render();
     return this.player.render();
-  },
-  gravity: 0.5
+  }
 };

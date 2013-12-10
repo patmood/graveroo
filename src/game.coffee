@@ -1,4 +1,5 @@
 game =
+  gravity: 0.5
   running: false
   init: ->
     if not gfx.init()
@@ -7,6 +8,7 @@ game =
     gfx.load -> game.reset()
   reset: ->
     @player = new Player(100, 200)
+    @level = new Level
     if not @running
       @start()
       @tick()
@@ -24,11 +26,8 @@ game =
     requestAnimationFrame ->
       game.tick()
   update: ->
-    # Update the level
+    @level.update()
     @player.update()
   render: ->
-    # Render the level first
-    gfx.ctx.fillStyle = "#000"
-    gfx.ctx.fillRect 0,0,gfx.w,gfx.h
+    @level.render()
     @player.render()
-  gravity: 0.5
