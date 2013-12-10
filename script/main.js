@@ -66,22 +66,19 @@ Level = (function() {
   };
 
   Level.prototype.render = function() {
-    var block, row, x, y, _i, _len, _ref, _results;
+    var block, c, row, x, y, _i, _j, _len, _len1, _ref;
     _ref = this.map;
-    _results = [];
     for (y = _i = 0, _len = _ref.length; _i < _len; y = ++_i) {
       row = _ref[y];
-      _results.push((function() {
-        var _j, _len1, _results1;
-        _results1 = [];
-        for (x = _j = 0, _len1 = row.length; _j < _len1; x = ++_j) {
-          block = row[x];
-          _results1.push(block.render(gfx, x * gfx.tileW + this.progress, y * gfx.tileH));
-        }
-        return _results1;
-      }).call(this));
+      for (x = _j = 0, _len1 = row.length; _j < _len1; x = ++_j) {
+        block = row[x];
+        block.render(gfx, x * gfx.tileW + this.progress, y * gfx.tileH);
+      }
     }
-    return _results;
+    c = gfx.ctx;
+    c.fillStyle = "#c21303";
+    c.font = "18pt helvetica";
+    return c.fillText(this.game.gravity, 700, 50);
   };
 
   return Level;
@@ -152,8 +149,7 @@ Player = (function() {
       yo += this.speed;
     }
     this.x += xo;
-    this.y += yo;
-    return this.checkNewPos(this.x, this.y);
+    return this.y += yo;
   };
 
   Player.prototype.land = function() {
@@ -268,7 +264,7 @@ game = {
     });
   },
   reset: function() {
-    this.level = new Level(levels[0]);
+    this.level = new Level(levels[0], this);
     this.player = new Player(this.level, 100, 200);
     if (!this.running) {
       this.start();

@@ -29,8 +29,6 @@ class Player
     @x += xo
     @y += yo
 
-    @checkNewPos @x, @y
-
   land: ->
     setTimeout (=> @jump()), 100
   jump: ->

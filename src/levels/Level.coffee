@@ -24,3 +24,9 @@ class Level
       for block, x in row
         block.render gfx, x * gfx.tileW + @progress, y * gfx.tileH
 
+    # Render Gravity
+    c = gfx.ctx
+    c.fillStyle = "#c21303"
+    c.font = "18pt helvetica"
+    c.fillText @game.gravity, 700, 50
+
