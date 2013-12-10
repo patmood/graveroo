@@ -40,5 +40,5 @@ class Player
 
   render: ->
     # Placeholder image/rectange
-    gfx.ctx.fillStyle = "#fff"
+    gfx.ctx.fillStyle = "#a26a2d"
     gfx.ctx.fillRect @x,@y,@w,@h

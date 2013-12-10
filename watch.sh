@@ -2,6 +2,7 @@
 
 xargs coffee -w -b -j script/main.js \
              -c << EOF
+                src/levels/levels.coffee
                 src/levels/Level.coffee
                 src/player.coffee
                 src/keys.coffee

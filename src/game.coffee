@@ -7,8 +7,8 @@ game =
       return
     gfx.load -> game.reset()
   reset: ->
-    @player = new Player(100, 200)
-    @level = new Level
+    @player = new Player 100, 200
+    @level = new Level levels[0]
     if not @running
       @start()
       @tick()
