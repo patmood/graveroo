@@ -4,11 +4,15 @@ var Level, Player, game, gfx, keys, levels;
 levels = [
   {
     name: "Down Under",
-    data: "....P.............X..*..\n@-@@.*.......@@@@@@@-@..\n.#..@@@.............#...\n.#.....@@.@@.....X..#...\n@OO#.........#@@...O#..^\n...#.........#......#.^O\n...#..@@-@@@@#..-@@@@@OO\n...#....#....#..#.......\n...#....#....#..#.......\n...#....#....#..#.......\n@-@@OOOOO.#.@@@@@#@@-@@@\n.#.X......#......#..#...\n.#...*....#......#..#...\n####..@@#@@..-@@@@@@@..*\n####....#....#.........#\n####....#....#.........#\nOOOOOOOOOOOOOOOOOOOOOOOO"
+    data: "........................\n........................\n........................\n........................\n........................\n........................\n........................\n........................\n........................\n........................\n........................\n........................\n........................\nOOOO.OOOOOOO...OOOOOOOOO\n........................"
   }
 ];
 
 Level = (function() {
+  Level.prototype.w = 0;
+
+  Level.prototype.h = 0;
+
   Level.prototype.progress = 0;
 
   function Level(level, game) {
@@ -17,8 +21,8 @@ Level = (function() {
   }
 
   Level.prototype.load = function(level) {
-    var asciiMap, row;
-    return asciiMap = (function() {
+    var row;
+    return this.asciiMap = (function() {
       var _i, _len, _ref, _results;
       _ref = level.data.split("\n");
       _results = [];
@@ -31,8 +35,28 @@ Level = (function() {
   };
 
   Level.prototype.update = function() {
-    gfx.drawTile("#59a219", 800 - this.progress, 380, 5);
-    return this.progress++;
+    var col, row, x, y, _i, _len, _ref, _results;
+    _ref = this.asciiMap;
+    _results = [];
+    for (y = _i = 0, _len = _ref.length; _i < _len; y = ++_i) {
+      row = _ref[y];
+      _results.push((function() {
+        var _j, _len1, _results1;
+        _results1 = [];
+        for (x = _j = 0, _len1 = row.length; _j < _len1; x = ++_j) {
+          col = row[x];
+          switch (col) {
+            case "O":
+              _results1.push(gfx.drawTile("#59a219", x * 18, y * 18));
+              break;
+            default:
+              _results1.push(void 0);
+          }
+        }
+        return _results1;
+      })());
+    }
+    return _results;
   };
 
   Level.prototype.render = function() {};
