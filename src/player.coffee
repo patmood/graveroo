@@ -4,7 +4,7 @@ class Player
   w: 18
   h: 24
   speed: -10
-  constructor: (@x, @y) ->
+  constructor: (@level, @x, @y) ->
     @falling = true
     @onGround = false
   move: (xo, yo) ->
@@ -22,9 +22,14 @@ class Player
       @speed += game.gravity
       yo += @speed
 
+    # Check for collisions
+
+
     # Update the position
     @x += xo
     @y += yo
+
+    @checkNewPos @x, @y
 
   land: ->
     setTimeout (=> @jump()), 100
@@ -37,8 +42,13 @@ class Player
     xo = yo = 0
 
     @move(xo, yo)
-
   render: ->
     # Placeholder image/rectange
     gfx.ctx.fillStyle = "#a26a2d"
     gfx.ctx.fillRect @x,@y,@w,@h
+
+
+
+
+
+
