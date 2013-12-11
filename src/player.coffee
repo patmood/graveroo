@@ -7,12 +7,15 @@ class Player
   constructor: (@level, @x, @y) ->
     @falling = true
     @onGround = false
+    @surface = gfx.h
+
   move: (xo, yo) ->
     # Determine the new position
-    # Check for obstacles
+    # Check for surface
+    @updateSurface()
 
     # Air or ground?
-    if (@y >= gfx.h - @h) and not @onGround
+    if (@y >= @surface - @h) and not @onGround
       @falling = false
       @onGround = true
       @land()
@@ -44,9 +47,7 @@ class Player
     # Placeholder image/rectange
     gfx.ctx.fillStyle = "#a26a2d"
     gfx.ctx.fillRect @x,@y,@w,@h
-
-
-
-
+  updateSurface: ->
+    @surface = @level.topBlockAt @x
 
 
